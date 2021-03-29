@@ -1,0 +1,26 @@
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+Type=notify
+User=fedora
+Group=fedora
+RuntimeDirectory=gunicorn
+WorkingDirectory=<%= @base_dir %>
+EnvironmentFile=/etc/conf.d/gunicorn
+ExecStart=<%= @base_dir %>/venv/bin/gunicorn -w 10 \
+                                  -k gevent \
+                                  --timeout 60 \
+                                  -b  127.0.0.1:8080 \
+                                  --limit-request-line 0 \
+                                  --limit-request-field_size 0 \
+                                  "superset.app:create_app()"
+ExecReload=/bin/kill -s HUP \$MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
