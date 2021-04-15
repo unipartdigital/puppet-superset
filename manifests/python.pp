@@ -25,11 +25,11 @@ class superset::python inherits superset {
 
   $deps = [
     'apache-superset[prophet, postgres]', 'eventlet', 'gevent', 'greenlet', 'gsheetsdb',
-    'gunicorn', 'pyldap', 'pystan<3.0', 'sqlalchemy'
+    'gunicorn', 'pyldap', 'sqlalchemy'
   ]
 
   python::pip { 'pystan':
-    ensure       => present,
+    ensure       => '2.19.1.1',
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
     owner        => $owner,
