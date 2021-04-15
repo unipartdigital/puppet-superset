@@ -24,8 +24,8 @@ class superset::python inherits superset {
   }
 
   $deps = [
-    'apache-superset', 'eventlet', 'fbprophet', 'gevent', 'greenlet', 'gsheetsdb',
-    'gunicorn', 'psycopg2', 'pyldap', 'pystan<3.0', 'sqlalchemy'
+    'apache-superset[prophet, postgres]', 'eventlet', 'gevent', 'greenlet', 'gsheetsdb',
+    'gunicorn', 'pyldap', 'pystan<3.0', 'sqlalchemy'
   ]
 
   python::pip { 'pystan':
