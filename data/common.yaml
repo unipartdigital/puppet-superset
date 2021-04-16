@@ -17,3 +17,4 @@ superset::log_level: DEBUG
 superset::concurrency: 4
 superset::manage_database: true
 superset::ldap_enabled: false
+superset::row_limit: None

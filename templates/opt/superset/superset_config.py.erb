@@ -14,7 +14,7 @@ UPLOAD_FOLDER = CURRENT_DIR + '/app/static/uploads/'
 IMG_UPLOAD_FOLDER = CURRENT_DIR + '/app/static/uploads/'
 
 SQLALCHEMY_DATABASE_URI = 'postgresql://<%= @db_user %>:<%= @db_pass %>@<%= @db_host %>/<%= @db_name %>'
-ROW_LIMIT = None
+ROW_LIMIT = <%= @row_limit %>
 
 FEATURE_FLAGS = {
     "ROW_LEVEL_SECURITY": True,

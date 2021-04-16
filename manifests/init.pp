@@ -17,6 +17,7 @@ class superset (
   String $ldap_group_dn,
   String $log_level,
   Integer $concurrency,
+  Variant[Integer, Enum['None']] $row_limit,
   Boolean $ldap_enabled,
   Boolean $manage_database,
   Hash[String, Array[String]] $ldap_roles_mapping,
