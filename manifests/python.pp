@@ -43,8 +43,9 @@ class superset::python inherits superset {
     require      => Python::Pip['pystan']
   }
 
-  python::pip { 'apache-superset[prophet, postgres]':
+  python::pip { 'apache-superset':
     ensure       => $version,
+    extras       => ['prophet', 'postgres'],
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
     owner        => $owner,
@@ -56,6 +57,6 @@ class superset::python inherits superset {
     onlyif  => "test `ls -aZ ${base_dir}/venv/bin/gunicorn | grep -c bin_t` -eq 0",
     user    => 'root',
     path    => '/sbin:/usr/sbin:/bin:/usr/bin',
-    require => [Python::Pip[$deps], Python::Pip['apache-superset[prophet, postgres]']]
+    require => [Python::Pip['pystan'], Python::Pip[$deps], Python::Pip['apache-superset']]
   }
 }
