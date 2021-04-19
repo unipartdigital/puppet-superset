@@ -9,6 +9,7 @@ class superset::config inherits superset {
     ensure  => present,
     content => template("${module_name}/opt/superset/superset_config.py.erb"),
     owner   => $owner,
-    group   => $group
+    group   => $group,
+    notify  => [Service['gunicorn'], Service['celery']]
   }
 }
