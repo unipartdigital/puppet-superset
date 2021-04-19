@@ -57,6 +57,6 @@ class superset::python inherits superset {
     onlyif  => "test `ls -aZ ${base_dir}/venv/bin/gunicorn | grep -c bin_t` -eq 0",
     user    => 'root',
     path    => '/sbin:/usr/sbin:/bin:/usr/bin',
-    require => [Python::Pip['pystan'], Python::Pip[$deps], Python::Pip['apache-superset']]
+    require => [Python::Pip['apache-superset']]
   }
 }
