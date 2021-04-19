@@ -18,6 +18,7 @@ class superset (
   String $log_level,
   Integer $concurrency,
   Variant[Integer, Enum['None']] $row_limit,
+  Variant[Enum[present, absent, latest], String[1]] $version,
   Boolean $ldap_enabled,
   Boolean $manage_database,
   Hash[String, Array[String]] $ldap_roles_mapping,
