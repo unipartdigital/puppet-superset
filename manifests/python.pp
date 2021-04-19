@@ -44,7 +44,7 @@ class superset::python inherits superset {
   }
 
   python::pip { 'apache-superset[prophet, postgres]':
-    ensure       => "$version",
+    ensure       => $version,
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
     owner        => $owner,
