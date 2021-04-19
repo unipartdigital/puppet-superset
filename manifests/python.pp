@@ -24,8 +24,7 @@ class superset::python inherits superset {
   }
 
   $deps = [
-    'apache-superset[prophet, postgres]', 'eventlet', 'gevent', 'greenlet', 'gsheetsdb',
-    'gunicorn', 'pyldap', 'sqlalchemy'
+    'eventlet', 'gevent', 'greenlet', 'gsheetsdb', 'gunicorn', 'pyldap', 'sqlalchemy'
   ]
 
   python::pip { 'pystan':
@@ -44,11 +43,19 @@ class superset::python inherits superset {
     require      => Python::Pip['pystan']
   }
 
+  python::pip { 'apache-superset[prophet, postgres]':
+    ensure       => "$version",
+    virtualenv   => "${base_dir}/venv",
+    pip_provider => 'pip3',
+    owner        => $owner,
+    require      => [Python::Pip['pystan'], Python::Pip[$deps]]
+  }
+
   exec { "restorecon -r ${base_dir}/venv/bin":
     command => "restorecon -r ${base_dir}/venv/bin",
     onlyif  => "test `ls -aZ ${base_dir}/venv/bin/gunicorn | grep -c bin_t` -eq 0",
     user    => 'root',
     path    => '/sbin:/usr/sbin:/bin:/usr/bin',
-    require => Python::Pip[$deps]
+    require => [Python::Pip[$deps], Python::Pip['apache-superset[prophet, postgres]']]
   }
 }
