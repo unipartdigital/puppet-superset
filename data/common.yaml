@@ -1,4 +1,6 @@
 ---
+superset::admin_email: ''
+superset::admin_pass: ''
 superset::admin_user: admin
 superset::base_dir: /opt/superset
 superset::owner: fedora
