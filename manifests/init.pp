@@ -21,8 +21,10 @@ class superset (
   Variant[Enum[present, absent, latest], String[1]] $version,
   Boolean $ldap_enabled,
   Boolean $manage_database,
+  Boolean $ldap_filter_login,
   Hash[String, Array[String]] $ldap_roles_mapping,
   Optional[String] $logo_path = undef,
+  Optional[String] $ldap_user_filter = undef,
 ) {
   contain superset::db
   contain superset::selinux

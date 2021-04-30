@@ -84,6 +84,10 @@ AUTH_LDAP_BIND_PASSWORD = "<%= @ldap_bind_pass %>"
 AUTH_LDAP_USE_TLS = False
 AUTH_LDAP_ALLOW_SELF_SIGNED = False
 
+<% if @ldap_filter_login -%>
+AUTH_LDAP_SEARCH_FILTER = "<%= @ldap_filter_string %>"
+<% end -%>
+
 AUTH_ROLES_SYNC_AT_LOGIN = True
 AUTH_ROLES_MAPPING = {
 <% @ldap_roles_mapping.each do | group, roles | -%>
