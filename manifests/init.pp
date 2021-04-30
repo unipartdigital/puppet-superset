@@ -19,6 +19,7 @@ class superset (
   Integer $concurrency,
   Variant[Integer, Enum['None']] $row_limit,
   Variant[Enum[present, absent, latest], String[1]] $version,
+  Boolean $dynamic_plugins,
   Boolean $ldap_enabled,
   Boolean $manage_database,
   Hash[String, Array[String]] $ldap_roles_mapping,
