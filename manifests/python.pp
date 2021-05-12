@@ -4,8 +4,8 @@ class superset::python inherits superset {
   require superset::package
 
   class { 'python':
-    pip  => present,
-    dev  => present,
+    pip => present,
+    dev => present,
   }
 
   file { $base_dir:
@@ -43,11 +43,24 @@ class superset::python inherits superset {
     require      => Python::Pip['pystan']
   }
 
+  # from https://forge.puppet.com/modules/puppet/python/2.1.1
+  #   url - URL to install from. Default: none
+  case $pip_repo
+  when 'PyPI'
+    $pip_repo_url = 'https://pypi.org/simple'
+  when 'pulp'
+    ## TODO: set up authentication/proxy if needed
+    $pip_repo_url = 'https://repo.unipart.io/pulp/api/v3/'
+  else
+    fail('Unknown pip repository for superset')
+  end
+
   python::pip { 'apache-superset':
     ensure       => $version,
     extras       => ['prophet', 'postgres'],
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
+    url          => $pip_repo_url,
     owner        => $owner,
     require      => [Python::Pip['pystan'], Python::Pip[$deps]]
   }
