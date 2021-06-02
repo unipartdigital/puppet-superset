@@ -3,8 +3,13 @@ class superset::python inherits superset {
   require superset::selinux
   require superset::package
 
+  package { "python${python_version}":
+    ensure => present,
+  }
+
   class { 'python':
-    pip  => present,
+    version => $python_version,
+    pip => present,
     dev  => present,
   }
 
@@ -17,7 +22,7 @@ class superset::python inherits superset {
   python::pyvenv { "${base_dir}/venv":
     ensure   => present,
     venv_dir => "${base_dir}/venv",
-    version  => 'system',
+    version  => $python_version,
     owner    => $owner,
     group    => $group,
     require  => [Class['python'], File[$base_dir]],

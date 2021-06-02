@@ -55,7 +55,7 @@ class superset::install inherits superset {
   }
 
   if ($logo_path) {
-    file { "${base_dir}/venv/lib/python3.8/site-packages/superset/static/assets/images/logo.png":
+    file { "${base_dir}/venv/lib/python${python_version}/site-packages/superset/static/assets/images/logo.png":
       ensure => present,
       source => $logo_path,
       owner  => $owner,

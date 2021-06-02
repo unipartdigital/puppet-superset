@@ -1,4 +1,5 @@
 ---
+superset::python_version: '3.7'
 superset::admin_user: admin
 superset::base_dir: /opt/superset
 superset::owner: fedora

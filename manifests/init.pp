@@ -1,5 +1,6 @@
 # =Class superset
 class superset (
+  String $python_version,
   String $admin_email,
   String $admin_user,
   String $admin_pass,
