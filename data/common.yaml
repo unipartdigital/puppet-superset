@@ -7,7 +7,7 @@ superset::db_host: localhost
 superset::db_name: superset
 superset::db_user: superset
 superset::version: present
-superset::logo_path: ''
+superset::logo_path:
 superset::ldap_server: ''
 superset::ldap_bind_user: ''
 superset::ldap_bind_pass: ''
