@@ -61,7 +61,7 @@ class CeleryConfig(object):
 CELERY_CONFIG = CeleryConfig
 
 WEBDRIVER_TYPE = "chrome"
-WEBDRIVER_BASEURL = "https://$(hostname).$(dnsdomainname)"
+WEBDRIVER_BASEURL = "http://localhost:8080"
 WEBDRIVER_OPTION_ARGS = [
     "--force-device-scale-factor=2.0",
     "--high-dpi-support=2.0",
