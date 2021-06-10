@@ -8,7 +8,6 @@ superset::db_host: localhost
 superset::db_name: superset
 superset::db_user: superset
 superset::version: present
-superset::logo_path: ''
 superset::ldap_server: ''
 superset::ldap_bind_user: ''
 superset::ldap_bind_pass: ''
@@ -22,3 +21,4 @@ superset::ldap_enabled: false
 superset::ldap_filter_login: true
 superset::row_limit: None
 superset::dynamic_plugins: false
+superset::pip_repo: []

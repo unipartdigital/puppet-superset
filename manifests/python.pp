@@ -10,7 +10,7 @@ class superset::python inherits superset {
   class { 'python':
     version => $python_version,
     pip => present,
-    dev  => present,
+    dev => present,
   }
 
   file { $base_dir:
@@ -48,13 +48,23 @@ class superset::python inherits superset {
     require      => Python::Pip['pystan']
   }
 
+  # from https://puppet.com/docs/puppet/7.6/types/package.html#package-attribute-install_options
+  if $pip_repo == [] {
+    $pip_install_options = []
+  } else {
+    $pip_install_options = [{'-i' => $pip_repo.shift}]
+    if $pip_repo.length > 0 {
+      $pip_install_options += [{'--extra-index-url' => $pip_repo.join(' ')}]
+    }
+  }
   python::pip { 'apache-superset':
-    ensure       => $version,
-    extras       => ['prophet', 'postgres'],
-    virtualenv   => "${base_dir}/venv",
-    pip_provider => 'pip3',
-    owner        => $owner,
-    require      => [Python::Pip['pystan'], Python::Pip[$deps]]
+    ensure          => $version,
+    extras          => ['prophet', 'postgres'],
+    virtualenv      => "${base_dir}/venv",
+    pip_provider    => 'pip3',
+    install_options => $pip_install_options,
+    owner           => $owner,
+    require         => [Python::Pip['pystan'], Python::Pip[$deps]]
   }
 
   exec { "restorecon -r ${base_dir}/venv/bin":
