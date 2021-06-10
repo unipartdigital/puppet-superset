@@ -44,7 +44,7 @@ THUMBNAIL_CACHE_CONFIG = {
     'CACHE_NO_NULL_WARNING': True,
     'CACHE_REDIS_URL': 'redis://localhost:6379/0'
 }
-THUMBNAIL_SELENIUM_USER = "@admin_user"
+THUMBNAIL_SELENIUM_USER = "<%= @admin_user %>"
 
 class CeleryConfig(object):
     BROKER_URL = 'redis://localhost:6379/0'
