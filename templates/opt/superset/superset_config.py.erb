@@ -44,7 +44,7 @@ THUMBNAIL_CACHE_CONFIG = {
     'CACHE_NO_NULL_WARNING': True,
     'CACHE_REDIS_URL': 'redis://localhost:6379/0'
 }
-
+THUMBNAIL_SELENIUM_USER = "@admin_user"
 
 class CeleryConfig(object):
     BROKER_URL = 'redis://localhost:6379/0'
@@ -61,7 +61,7 @@ class CeleryConfig(object):
 CELERY_CONFIG = CeleryConfig
 
 WEBDRIVER_TYPE = "chrome"
-WEBDRIVER_BASEURL = "https://$(hostname).$(dnsdomainname)"
+WEBDRIVER_BASEURL = "http://localhost:8080"
 WEBDRIVER_OPTION_ARGS = [
     "--force-device-scale-factor=2.0",
     "--high-dpi-support=2.0",
