@@ -20,4 +20,3 @@ superset::ldap_enabled: false
 superset::ldap_filter_login: true
 superset::row_limit: None
 superset::dynamic_plugins: false
-superset::pip_repo: []

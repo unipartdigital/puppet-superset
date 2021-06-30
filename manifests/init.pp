@@ -26,6 +26,8 @@ class superset (
   Hash[String, Array[String]] $ldap_roles_mapping,
   Optional[String] $logo_path = undef,
   Optional[String] $ldap_user_filter = undef,
+  Optional[String] $pip_index_url = undef,
+  Optional[Array[String]] $pip_install_args = undef,
 ) {
   contain superset::db
   contain superset::selinux
