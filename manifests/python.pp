@@ -49,7 +49,7 @@ class superset::python inherits superset {
   } else {
     $pip_install_options = [{'-i' => $pip_repo.shift}]
     if $pip_repo.length > 0 {
-      $pip_install_options += [{'--extra-index-url' => $pip_repo.join(' ')}]
+      $pip_install_options = $pip_install_options + {'--extra-index-url' => $pip_repo.join(' ')}
     }
   }
   python::pip { 'apache-superset':
