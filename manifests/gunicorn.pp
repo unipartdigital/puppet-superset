@@ -16,7 +16,6 @@ class superset::gunicorn inherits superset {
     content => template("${module_name}/etc/systemd/system/gunicorn.service.erb"),
     owner   => 'root',
     group   => 'root',
-    notify  => Class[systemd::systemctl::daemon_reload]
   }
 
   file { '/etc/systemd/system/gunicorn.socket':
@@ -24,6 +23,5 @@ class superset::gunicorn inherits superset {
     content => file("${module_name}/etc/systemd/system/gunicorn.socket"),
     owner   => 'root',
     group   => 'root',
-    notify  => Class[systemd::systemctl::daemon_reload]
   }
 }

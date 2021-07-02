@@ -16,6 +16,7 @@ class superset (
   String $ldap_base_dn,
   String $ldap_group_dn,
   String $log_level,
+  String $pip_args,
   Integer $concurrency,
   Variant[Integer, Enum['None']] $row_limit,
   Variant[Enum[present, absent, latest], String[1]] $version,
@@ -24,7 +25,6 @@ class superset (
   Boolean $manage_database,
   Boolean $ldap_filter_login,
   Hash[String, Array[String]] $ldap_roles_mapping,
-  Array[String] $pip_repo,
   Optional[String] $logo_path = undef,
   Optional[String] $ldap_user_filter = undef,
 ) {

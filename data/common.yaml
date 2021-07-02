@@ -12,6 +12,7 @@ superset::ldap_bind_user: ''
 superset::ldap_bind_pass: ''
 superset::ldap_base_dn: ''
 superset::ldap_group_dn: ''
+superset::pip_args: ''
 superset::ldap_roles_mapping: {}
 superset::log_level: DEBUG
 superset::concurrency: 4
@@ -20,4 +21,3 @@ superset::ldap_enabled: false
 superset::ldap_filter_login: true
 superset::row_limit: None
 superset::dynamic_plugins: false
-superset::pip_repo: []

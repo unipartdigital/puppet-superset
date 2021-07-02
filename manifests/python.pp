@@ -43,26 +43,14 @@ class superset::python inherits superset {
     require      => Python::Pip['pystan']
   }
 
-  # from https://puppet.com/docs/puppet/7.6/types/package.html#package-attribute-install_options
-  if $pip_repo == [] {
-    $pip_install_options = []
-  } elsif $pip_repo.length > 0 {
-    $pip_install_options = [
-      {'-i' => $pip_repo.shift},
-      {'--extra-index-url' => $pip_repo.join(' ')}
-    ]
-  } else {
-    $pip_install_options = [{'-i' => $pip_repo.shift}]
-  }
-
   python::pip { 'apache-superset':
-    ensure          => $version,
-    extras          => ['prophet', 'postgres'],
-    virtualenv      => "${base_dir}/venv",
-    pip_provider    => 'pip3',
-    install_options => $pip_install_options,
-    owner           => $owner,
-    require         => [Python::Pip['pystan'], Python::Pip[$deps]]
+    ensure       => $version,
+    extras       => ['prophet', 'postgres'],
+    virtualenv   => "${base_dir}/venv",
+    pip_provider => 'pip3',
+    install_args => $pip_args,
+    owner        => $owner,
+    require      => [Python::Pip['pystan'], Python::Pip[$deps]]
   }
 
   exec { "restorecon -r ${base_dir}/venv/bin":
