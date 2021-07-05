@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=forking
-User=fedora
-Group=fedora
+User=<%= @owner %>
+Group=<%= @group %>
 EnvironmentFile=/etc/conf.d/celery
 WorkingDirectory=<%= @base_dir %>
 ExecStart=/bin/sh -c '${CELERY_BIN} -A $CELERY_APP multi start $CELERYD_NODES \

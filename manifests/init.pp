@@ -29,7 +29,6 @@ class superset (
   Optional[String] $ldap_user_filter = undef,
 ) {
   contain superset::db
-  contain superset::selinux
   contain superset::package
   contain superset::python
   contain superset::celery
@@ -37,4 +36,7 @@ class superset (
   contain superset::config
   contain superset::install
   contain superset::service
+  if downcase($::osfamily) == 'RedHat'{
+    contain superset::selinux
+  }
 }

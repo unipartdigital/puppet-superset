@@ -1,7 +1,9 @@
 # =Class superset::python
 class superset::python inherits superset {
-  require superset::selinux
   require superset::package
+  if downcase($::osfamily) == 'RedHat'{
+    require superset::selinux
+  }
 
   class { 'python':
     pip => present,
@@ -24,7 +26,13 @@ class superset::python inherits superset {
   }
 
   $deps = [
-    'eventlet', 'gevent', 'greenlet', 'gsheetsdb', 'gunicorn', 'pyldap', 'sqlalchemy'
+    'eventlet',
+    'gevent',
+    'greenlet',
+    'gsheetsdb',
+    'gunicorn',
+    'pyldap',
+    'sqlalchemy',
   ]
 
   python::pip { 'pystan':
