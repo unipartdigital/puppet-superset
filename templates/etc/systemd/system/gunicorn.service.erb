@@ -5,8 +5,8 @@ After=network.target
 
 [Service]
 Type=notify
-User=fedora
-Group=fedora
+User=<%= @owner %>
+Group=<%= @group %>
 RuntimeDirectory=gunicorn
 WorkingDirectory=<%= @base_dir %>
 EnvironmentFile=/etc/conf.d/gunicorn
