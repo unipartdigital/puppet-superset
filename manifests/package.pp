@@ -3,7 +3,7 @@ class superset::package inherits superset {
 
   $generic_deps = ['git']
 
-  if downcase($::osfamily) == 'RedHat'{
+  if downcase($::osfamily) == 'redhat'{
     $deps = $generic_deps + [
       'chromedriver',
       'chromium',
@@ -14,7 +14,7 @@ class superset::package inherits superset {
       'openldap-devel',
       'openssl-devel',
     ]
-  } elsif downcase($::osfamily) == 'Debian'{
+  } elsif downcase($::osfamily) == 'debian'{
     $deps = $generic_deps + [
       'chromium-browser',
       'ldap-utils',

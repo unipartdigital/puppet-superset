@@ -36,7 +36,7 @@ class superset (
   contain superset::config
   contain superset::install
   contain superset::service
-  if downcase($::osfamily) == 'RedHat'{
+  if downcase($::osfamily) == 'redhat'{
     contain superset::selinux
   }
 }

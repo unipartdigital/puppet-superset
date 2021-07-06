@@ -14,8 +14,8 @@ class superset::db inherits superset {
 
     if defined('pgdump::dump') {
       $pg_base_dir = downcase($::osfamily) ? {
-        'RedHat' => '/var/lib/pgsql',
-        'Debian' => '/var/lib/postgresql',
+        'redhat' => '/var/lib/pgsql',
+        'debian' => '/var/lib/postgresql',
         default  => undef
       }
 
