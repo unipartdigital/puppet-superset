@@ -21,7 +21,7 @@ class superset::db inherits superset {
 
       class { 'pgdump::dump':
         db_name     => $db_name,
-        db_dump_dir => "${$pg_base_dir}/dump"
+        db_dump_dir => "${$pg_base_dir}/dump",
         require     => Postgresql::Server::Db[$db_name]
       }
     }
