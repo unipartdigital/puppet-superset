@@ -43,11 +43,22 @@ class superset::python inherits superset {
     require      => Python::Pyvenv["${base_dir}/venv"]
   }
 
+  if $package_index_url != undef {
+    if $package_index_username != undef and $package_index_password != undef {
+      $package_index = "https://${package_index_username}:${package_index_password}@${package_index_url}"
+    } else {
+      $package_index = "https://${package_index_url}"
+    }
+  } else {
+    $package_index = false
+  }
+
   python::pip { 'apache-superset':
     ensure       => $version,
     extras       => ['prophet', 'postgres'],
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
+    index        => $package_index,
     install_args => $pip_args,
     owner        => $owner,
     require      => [Python::Pip[$deps]]
