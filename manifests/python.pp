@@ -35,20 +35,12 @@ class superset::python inherits superset {
     'sqlalchemy',
   ]
 
-  python::pip { 'pystan':
-    ensure       => '2.19.1.1',
-    virtualenv   => "${base_dir}/venv",
-    pip_provider => 'pip3',
-    owner        => $owner,
-    require      => Python::Pyvenv["${base_dir}/venv"]
-  }
-
   python::pip { $deps:
     ensure       => present,
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
     owner        => $owner,
-    require      => Python::Pip['pystan']
+    require      => Python::Pyvenv["${base_dir}/venv"]
   }
 
   python::pip { 'apache-superset':
@@ -58,7 +50,7 @@ class superset::python inherits superset {
     pip_provider => 'pip3',
     install_args => $pip_args,
     owner        => $owner,
-    require      => [Python::Pip['pystan'], Python::Pip[$deps]]
+    require      => [Python::Pip[$deps]]
   }
 
   exec { "restorecon -r ${base_dir}/venv/bin":
