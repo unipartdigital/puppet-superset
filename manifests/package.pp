@@ -1,10 +1,8 @@
 # =Class superset::package
 class superset::package inherits superset {
 
-  $generic_deps = ['git']
-
   if downcase($::osfamily) == 'redhat'{
-    $deps = $generic_deps + [
+    $deps = [
       'chromedriver',
       'chromium',
       'cyrus-sasl-devel',
@@ -15,7 +13,7 @@ class superset::package inherits superset {
       'openssl-devel',
     ]
   } elsif downcase($::osfamily) == 'debian'{
-    $deps = $generic_deps + [
+    $deps = [
       'chromium-browser',
       'ldap-utils',
       'libsasl2-dev',

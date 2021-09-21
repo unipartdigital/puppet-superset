@@ -35,20 +35,22 @@ class superset::python inherits superset {
     'sqlalchemy',
   ]
 
-  python::pip { 'pystan':
-    ensure       => '2.19.1.1',
+  python::pip { $deps:
+    ensure       => present,
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
     owner        => $owner,
     require      => Python::Pyvenv["${base_dir}/venv"]
   }
 
-  python::pip { $deps:
-    ensure       => present,
-    virtualenv   => "${base_dir}/venv",
-    pip_provider => 'pip3',
-    owner        => $owner,
-    require      => Python::Pip['pystan']
+  if $package_index_url != undef {
+    if $package_index_username != undef and $package_index_password != undef {
+      $package_index = "https://${package_index_username}:${package_index_password}@${package_index_url}"
+    } else {
+      $package_index = "https://${package_index_url}"
+    }
+  } else {
+    $package_index = false
   }
 
   python::pip { 'apache-superset':
@@ -56,9 +58,10 @@ class superset::python inherits superset {
     extras       => ['prophet', 'postgres'],
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
+    index        => $package_index,
     install_args => $pip_args,
     owner        => $owner,
-    require      => [Python::Pip['pystan'], Python::Pip[$deps]]
+    require      => [Python::Pip[$deps]]
   }
 
   exec { "restorecon -r ${base_dir}/venv/bin":
