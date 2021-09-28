@@ -42,4 +42,16 @@ class superset (
   if downcase($::osfamily) == 'redhat'{
     contain superset::selinux
   }
+
+  group { $group:
+    ensure => 'present',
+  }
+
+  user { $owner:
+    ensure     => 'present',
+    comment    => 'User designated for running superset',
+    groups     => $group,
+    home       => "/home/${owner}",
+    managehome => true,
+  }
 }
