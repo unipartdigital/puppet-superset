@@ -14,7 +14,7 @@ class superset::package inherits superset {
     ]
   } elsif downcase($::osfamily) == 'debian'{
     $deps = [
-      'chromium-browser',
+      'chromium',
       'ldap-utils',
       'libsasl2-dev',
       'libssl-dev',
