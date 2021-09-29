@@ -23,7 +23,7 @@ class superset (
   Optional[String[1]] $package_index_url = undef,
   Optional[String[1]] $package_index_username = undef,
   Optional[String[1]] $package_index_password = undef,
-  Boolean $dynamic_plugins,
+  Optional[Hash[String, Boolean]] $feature_flags = undef,
   Boolean $ldap_enabled,
   Boolean $manage_database,
   Boolean $ldap_filter_login,
