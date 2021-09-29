@@ -21,7 +21,6 @@ class superset::package inherits superset {
       'policycoreutils',
       'python3-ldap',
       'libldap2-dev',
-      'python3-pyldap',
       'python3-dev',
     ]
   }
