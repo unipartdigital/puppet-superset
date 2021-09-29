@@ -42,6 +42,7 @@ class superset::python inherits superset {
       'greenlet',
       'gsheetsdb',
       'gunicorn',
+      'pyldap',
       'sqlalchemy',
     ]
   }
