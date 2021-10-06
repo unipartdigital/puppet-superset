@@ -19,7 +19,7 @@ class superset::python inherits superset {
   python::pyvenv { "${base_dir}/venv":
     ensure   => present,
     venv_dir => "${base_dir}/venv",
-    version  => 'system',
+    version  => '3/3.7/',
     owner    => $owner,
     group    => $group,
     require  => [Class['python'], File[$base_dir]],
