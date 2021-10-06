@@ -6,6 +6,7 @@ class superset::python inherits superset {
   }
 
   class { 'python':
+    version => '3.7',
     pip => present,
     dev => present,
   }
