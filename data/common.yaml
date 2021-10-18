@@ -6,12 +6,13 @@ superset::group: fedora
 superset::db_host: localhost
 superset::db_name: superset
 superset::db_user: superset
-superset::version: present
+superset::superset_version: present
 superset::ldap_server: ''
 superset::ldap_bind_user: ''
 superset::ldap_bind_pass: ''
 superset::ldap_base_dn: ''
 superset::ldap_group_dn: ''
+superset::python_version: '3'
 superset::pip_args: ''
 superset::ldap_roles_mapping: {}
 superset::log_level: DEBUG
