@@ -17,6 +17,7 @@ class superset (
   String $ldap_group_dn,
   String $log_level,
   String $pip_args,
+  Variant[Enum['system', 'pypy'], String[1]] $python_version,
   Integer $concurrency,
   Variant[Integer, Enum['None']] $row_limit,
   Variant[Enum[present, absent, latest], String[1]] $version,

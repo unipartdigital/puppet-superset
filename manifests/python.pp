@@ -6,9 +6,9 @@ class superset::python inherits superset {
   }
 
   class { 'python':
-    version => '3.8',
-    pip => present,
-    dev => present,
+    version => $python_version,
+    pip     => present,
+    dev     => present,
   }
 
   file { $base_dir:
@@ -20,7 +20,7 @@ class superset::python inherits superset {
   python::pyvenv { "${base_dir}/venv":
     ensure   => present,
     venv_dir => "${base_dir}/venv",
-    version  => '3.8',
+    version  => $python_version,
     owner    => $owner,
     group    => $group,
     require  => [Class['python'], File[$base_dir]],
@@ -35,7 +35,7 @@ class superset::python inherits superset {
     'pyldap',
     'sqlalchemy',
   ]
- 
+
   python::pip { $deps:
     ensure       => present,
     virtualenv   => "${base_dir}/venv",
