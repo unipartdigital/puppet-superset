@@ -20,7 +20,7 @@ class superset (
   Variant[Enum['system', 'pypy'], String[1]] $python_version,
   Integer $concurrency,
   Variant[Integer, Enum['None']] $row_limit,
-  Variant[Enum[present, absent, latest], String[1]] $version,
+  Variant[Enum[present, absent, latest], String[1]] $superset_version,
   Optional[String[1]] $package_index_url = undef,
   Optional[String[1]] $package_index_username = undef,
   Optional[String[1]] $package_index_password = undef,

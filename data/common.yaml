@@ -6,7 +6,7 @@ superset::group: fedora
 superset::db_host: localhost
 superset::db_name: superset
 superset::db_user: superset
-superset::version: present
+superset::superset_version: present
 superset::ldap_server: ''
 superset::ldap_bind_user: ''
 superset::ldap_bind_pass: ''
