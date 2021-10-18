@@ -16,15 +16,15 @@ IMG_UPLOAD_FOLDER = CURRENT_DIR + '/app/static/uploads/'
 SQLALCHEMY_DATABASE_URI = 'postgresql://<%= @db_user %>:<%= @db_pass %>@<%= @db_host %>/<%= @db_name %>'
 ROW_LIMIT = <%= @row_limit %>
 
-FEATURE_FLAGS = {
-    "DYNAMIC_PLUGINS": <% if @dynamic_plugins -%>True<% else -%>False<% end -%>,
-    "ROW_LEVEL_SECURITY": True,
-    "VERSIONED_EXPORT": True,
-
-    "THUMBNAILS": True,
-    "THUMBNAILS_SQLA_LISTENERS": True,
-    "LISTVIEWS_DEFAULT_CARD_VIEW": True,
+<% if @feature_flags -%>
+FEATURE_FLAGS ={
+<% @feature_flags.each do | feature, toggle | -%>
+    "<%= feature %>": <% if toggle -%>True<% else -%>False<% end -%>,
+<% end -%>
 }
+<% else -%>
+# no feature flag configured
+<% end -%>
 
 ENABLE_TIME_ROTATE = True
 
