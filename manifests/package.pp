@@ -2,8 +2,24 @@
 class superset::package inherits superset {
 
   if downcase($::osfamily) == 'redhat'{
+    $pre_deps = [
+      'dnf-plugins-core',
+      'fedora-workstation-repositories'
+    ]
+    package { $pre_deps:
+      ensure => present
+    }
+
+    exec { 'enable chrome':
+      command => 'dnf config-manager --set-enabled google-chrome',
+      user        => 'root',
+      group       => 'root',
+      path        => '/usr/sbin:/usr/bin:/sbin:/bin',
+      require => Package[$pre_deps],
+    }
+
     $deps = [
-      'google-chrome-stable', # requires an entry under yum::repos in hiera
+      'google-chrome-stable',
       'cyrus-sasl-devel',
       'gcc-c++',
       'gcc',
@@ -13,6 +29,12 @@ class superset::package inherits superset {
       'gawk',
       'curl',
     ]
+
+    package { $deps:
+      ensure  => present,
+      require => Exec['enable chrome'],
+    }
+    
   } elsif downcase($::osfamily) == 'debian'{
     $deps = [
       'google-chrome-stable', # requires an entry under apt::sources in hiera
@@ -25,12 +47,12 @@ class superset::package inherits superset {
       'gawk',
       'curl',
     ]
+
+    package { $deps:
+      ensure => present
+    }
   }
 
-  package { $deps:
-    ensure => present
-  }
-  
   file { '/usr/bin/google-chrome':
     ensure  => 'link',
     target  => '/usr/bin/google-chrome-stable',
@@ -44,7 +66,7 @@ class superset::package inherits superset {
       "\"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$(google-chrome --version | gawk 'match(\$0, /\s([0-9]*)\./, g) {print g[1]}')\")/chromedriver_linux64.zip",
       "&& unzip chromedriver_linux64.zip",
       "&& rm chromedriver_linux64.zip",
-      "&& sudo mv chromedriver /usr/local/bin",
+      "&& mv chromedriver /usr/local/bin",
     ], ' '),
     user        => 'root',
     group       => 'root',
