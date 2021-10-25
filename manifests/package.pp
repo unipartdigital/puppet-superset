@@ -19,15 +19,16 @@ class superset::package inherits superset {
     }
 
     $deps = [
-      'google-chrome-stable',
+      'curl',
       'cyrus-sasl-devel',
+      'gawk',
       'gcc-c++',
       'gcc',
+      'google-chrome-stable',
       'libffi-devel',
       'openldap-devel',
       'openssl-devel',
-      'gawk',
-      'curl',
+      'systemd-devel',
     ]
 
     package { $deps:
@@ -37,15 +38,16 @@ class superset::package inherits superset {
     
   } elsif downcase($::osfamily) == 'debian'{
     $deps = [
+      'curl',
+      'gawk',
       'google-chrome-stable', # requires an entry under apt::sources in hiera
       'ldap-utils',
+      'libldap2-dev',
       'libsasl2-dev',
       'libssl-dev',
+      'libsystemd-dev',
       'policycoreutils',
       'python3-ldap',
-      'libldap2-dev',
-      'gawk',
-      'curl',
     ]
 
     package { $deps:

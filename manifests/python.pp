@@ -34,6 +34,7 @@ class superset::python inherits superset {
     'gunicorn',
     'pyldap',
     'sqlalchemy',
+    'systemd',
   ]
 
   python::pip { $deps:
