@@ -1,6 +1,12 @@
+import logging
 import os
+from logging.handlers import TimedRotatingFileHandler
 
-from flask_appbuilder.security.manager import AUTH_LDAP, AUTH_DB
+from celery.signals import after_setup_logger, after_setup_task_logger
+from flask_appbuilder.security.manager import AUTH_DB, AUTH_LDAP
+from systemd.journal import JournaldLogHandler
+from superset.utils.logging_configurator import DefaultLoggingConfigurator
+
 
 SECRET_KEY = '<%= @secret_key %>'
 DEBUG = False
@@ -102,3 +108,25 @@ AUTH_ROLES_MAPPING = {
 <% else -%>
 AUTH_TYPE = AUTH_DB
 <% end -%>
+
+
+class CustomLoggingConfigurator(DefaultLoggingConfigurator):
+    def configure_logging(self, app_config, debug_mode):
+        super().configure_logging(app_config, debug_mode)
+        superset_logger = logging.getLogger("superset")
+        superset_logger.addHandler(JournaldLogHandler())
+
+LOGGING_CONFIGURATOR = CustomLoggingConfigurator()
+
+
+def init_celery_logger(logger=None,loglevel=logging.DEBUG, **kwargs):
+    if not logger:
+        logger = logging.getLogger("superset")
+    logger.addHandler(JournaldLogHandler())
+    logger.setLevel(loglevel)
+    return logger
+
+
+after_setup_task_logger.connect(init_celery_logger)
+after_setup_logger.connect(init_celery_logger)
+
