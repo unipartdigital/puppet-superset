@@ -49,7 +49,8 @@ class superset::package inherits superset {
     ]
 
     package { $deps:
-      ensure => present
+      ensure  => present,
+      require => Apt::Source['google-chrome'],
     }
   }
 
