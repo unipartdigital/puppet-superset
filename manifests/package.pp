@@ -19,7 +19,6 @@ class superset::package inherits superset {
     }
 
     $deps = [
-      'curl',
       'cyrus-sasl-devel',
       'gawk',
       'gcc-c++',
