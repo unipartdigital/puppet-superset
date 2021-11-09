@@ -37,7 +37,6 @@ class superset::package inherits superset {
     
   } elsif downcase($::osfamily) == 'debian'{
     $deps = [
-      'curl',
       'gawk',
       'google-chrome-stable', # requires an entry under apt::sources in hiera
       'ldap-utils',
