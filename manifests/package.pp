@@ -63,7 +63,7 @@ class superset::package inherits superset {
   exec { 'install chromedriver':
     command => join([
       "wget",
-      "https://chromedriver.storage.googleapis.com/$(curl",
+      "https://chromedriver.storage.googleapis.com/$(wget --no-check-certificate -qO -",
       "\"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$(google-chrome --version | gawk 'match(\$0, /\s([0-9]*)\./, g) {print g[1]}')\")/chromedriver_linux64.zip",
       "&& unzip chromedriver_linux64.zip",
       "&& rm chromedriver_linux64.zip",
