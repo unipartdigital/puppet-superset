@@ -11,6 +11,14 @@ class superset::celery inherits superset {
     require => File['/etc/conf.d']
   }
 
+  file { '/etc/conf.d/celery-beat':
+    ensure  => present,
+    content => template("${module_name}/etc/conf.d/celery-beat.erb"),
+    owner   => 'root',
+    group   => 'root',
+    require => File['/etc/conf.d']
+  }
+
   file { '/etc/systemd/system/celery.service':
     ensure  => present,
     content => template("${module_name}/etc/systemd/system/celery.service.erb"),
@@ -18,9 +26,16 @@ class superset::celery inherits superset {
     group   => 'root'
   }
 
-  file { ['/var/run/celery', '/var/log/celery']:
-    ensure => directory,
-    owner  => $owner,
-    group  => $group
+  file { '/etc/systemd/system/celery-beat.service':
+    ensure  => present,
+    content => template("${module_name}/etc/systemd/system/celery-beat.service.erb"),
+    owner   => 'root',
+    group   => 'root'
   }
+
+    file { ['/var/run/celery', '/var/log/celery', '/var/run/celery-beat', '/var/log/celery-beat']:
+      ensure => directory,
+      owner  => $owner,
+      group  => $group
+    }
 }
