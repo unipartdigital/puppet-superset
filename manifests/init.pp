@@ -31,7 +31,6 @@ class superset (
   Optional[String[1]] $package_index_password = undef,
   Optional[Hash[String, Boolean]] $feature_flags = undef,
   Boolean $ldap_enabled,
-  Boolean $smtp_enabled,
   Boolean $smtp_starttls,
   Boolean $smtp_ssl,
   Boolean $manage_database,

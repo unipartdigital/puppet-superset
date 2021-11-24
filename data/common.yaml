@@ -23,7 +23,6 @@ superset::log_level: DEBUG
 superset::concurrency: 4
 superset::manage_database: true
 superset::ldap_enabled: false
-superset::smtp_enabled: false
 superset::smtp_starttls: false
 superset::smtp_ssl: false
 superset::ldap_filter_login: true

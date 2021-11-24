@@ -103,10 +103,10 @@ WEBDRIVER_OPTION_ARGS = [
 
 AUTH_USER_REGISTRATION = True
 
-<% if @smtp_enabled -%>
+<% if @feature_flags['ALERT_REPORTS'] -%>
 SMTP_HOST = "<%= @smtp_host %>"
-SMTP_STARTTLS = <% if @smtp_starttls -%>True<% else -%>False<% end -%>
-SMTP_SSL = <% if @smtp_ssl -%>True<% else -%>False<% end -%>
+SMTP_STARTTLS = <% if @smtp_starttls %>True<% else %>False<% end %>
+SMTP_SSL = <% if @smtp_ssl %>True<% else %>False<% end %>
 SMTP_USER = "<%= @smtp_user %>"
 SMTP_PORT = <%= @smtp_port %>
 SMTP_PASSWORD = "<%= @smtp_pass %>"
