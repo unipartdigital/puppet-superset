@@ -12,9 +12,9 @@ class superset::package inherits superset {
 
     exec { 'enable chrome':
       command => 'dnf config-manager --set-enabled google-chrome',
-      user        => 'root',
-      group       => 'root',
-      path        => '/usr/sbin:/usr/bin:/sbin:/bin',
+      user    => 'root',
+      group   => 'root',
+      path    => '/usr/sbin:/usr/bin:/sbin:/bin',
       require => Package[$pre_deps],
     }
 
@@ -34,7 +34,7 @@ class superset::package inherits superset {
       ensure  => present,
       require => Exec['enable chrome'],
     }
-    
+
   } elsif downcase($::osfamily) == 'debian'{
     $deps = [
       'gawk',
@@ -62,16 +62,16 @@ class superset::package inherits superset {
 
   exec { 'install chromedriver':
     command => join([
-      "wget",
-      "https://chromedriver.storage.googleapis.com/$(wget --no-check-certificate -qO -",
+      'wget',
+      'https://chromedriver.storage.googleapis.com/$(wget --no-check-certificate -qO -',
       "\"https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$(google-chrome --version | gawk 'match(\$0, /\s([0-9]*)\./, g) {print g[1]}')\")/chromedriver_linux64.zip",
-      "&& unzip chromedriver_linux64.zip",
-      "&& rm chromedriver_linux64.zip",
-      "&& mv chromedriver /usr/local/bin",
+      '&& unzip chromedriver_linux64.zip',
+      '&& rm chromedriver_linux64.zip',
+      '&& mv chromedriver /usr/local/bin',
     ], ' '),
-    user        => 'root',
-    group       => 'root',
-    path        => '/usr/sbin:/usr/bin:/sbin:/bin',
+    user    => 'root',
+    group   => 'root',
+    path    => '/usr/sbin:/usr/bin:/sbin:/bin',
     require => File['/usr/bin/google-chrome']
   }
 
