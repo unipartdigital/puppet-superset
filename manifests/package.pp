@@ -18,7 +18,7 @@ class superset::package inherits superset {
       require => Package[$pre_deps],
     }
 
-    $deps = [
+    $base_deps = [
       'cyrus-sasl-devel',
       'gawk',
       'gcc-c++',
@@ -30,13 +30,20 @@ class superset::package inherits superset {
       'systemd-devel',
     ]
 
+    if 'mysql' in $superset_extras {
+      # `mysqlclient` dependencies, cf. https://pypi.org/project/mysqlclient/
+      $mysql_deps = ['python3-devel', 'mysql-devel']
+    } else {
+      $mysql_deps = []
+    }
+
     package { $deps:
       ensure  => present,
       require => Exec['enable chrome'],
     }
 
   } elsif downcase($::osfamily) == 'debian'{
-    $deps = [
+    $base_deps = [
       'gawk',
       'google-chrome-stable', # requires an entry under apt::sources in hiera
       'ldap-utils',
@@ -48,7 +55,15 @@ class superset::package inherits superset {
       'python3-ldap',
     ]
 
-    package { $deps:
+    if 'mysql' in $superset_extras {
+      # `mysqlclient` dependencies, cf. https://pypi.org/project/mysqlclient/
+      # 'python3-dev' is omitted as already installed
+      $mysql_deps = ['default-libmysqlclient-dev', 'build-essential']
+    } else {
+      $mysql_deps = []
+    }
+
+    package { $base_deps + $mysql_deps:
       ensure  => present,
       require => Apt::Source['google-chrome'],
     }
@@ -57,7 +72,7 @@ class superset::package inherits superset {
   file { '/usr/bin/google-chrome':
     ensure  => 'link',
     target  => '/usr/bin/google-chrome-stable',
-    require => Package[$deps],
+    require => Package['os_dependencies'],
   }
 
   exec { 'install chromedriver':
