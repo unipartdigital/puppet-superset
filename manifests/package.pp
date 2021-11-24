@@ -57,22 +57,27 @@ class superset::package inherits superset {
 
     if 'mysql' in $superset_extras {
       # `mysqlclient` dependencies, cf. https://pypi.org/project/mysqlclient/
-      # 'python3-dev' is omitted as already installed
+      # Omitting 'python3-dev' that clashed with later Python install
       $mysql_deps = ['default-libmysqlclient-dev', 'build-essential']
     } else {
       $mysql_deps = []
     }
 
-    package { $base_deps + $mysql_deps:
-      ensure  => present,
-      require => Apt::Source['google-chrome'],
-    }
+    $os_dependencies = $base_deps + $mysql_deps
+
+    ensure_resources(
+      'package',
+      $os_dependencies => {
+        ensure  => present,
+        require => Apt::Source['google-chrome'],
+      }
+    )
   }
 
   file { '/usr/bin/google-chrome':
     ensure  => 'link',
     target  => '/usr/bin/google-chrome-stable',
-    require => Package['os_dependencies'],
+    require => Package[$os_dependencies],
   }
 
   exec { 'install chromedriver':
