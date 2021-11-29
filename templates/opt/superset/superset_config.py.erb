@@ -2,6 +2,7 @@ import logging
 import os
 from logging.handlers import TimedRotatingFileHandler
 
+from celery.schedules import crontab
 from celery.signals import after_setup_logger, after_setup_task_logger
 from flask_appbuilder.security.manager import AUTH_DB, AUTH_LDAP
 from systemd.journal import JournaldLogHandler
@@ -63,6 +64,27 @@ class CeleryConfig(object):
     CELERYD_LOG_LEVEL = 'DEBUG'
     CELERYD_PREFETCH_MULTIPLIER = 10
     CELERY_ACKS_LATE = True
+    CELERY_ANNOTATIONS = {
+        'sql_lab.get_sql_results': {
+            'rate_limit': '100/s',
+        },
+        'email_reports.send': {
+            'rate_limit': '1/s',
+            'time_limit': 600,
+            'soft_time_limit': 600,
+            'ignore_result': True,
+        },
+    }
+    CELERYBEAT_SCHEDULE = {
+        'reports.scheduler': {
+            'task': 'reports.scheduler',
+            'schedule': crontab(minute='*', hour='*'),
+        },
+        'reports.prune_log': {
+            'task': 'reports.prune_log',
+            'schedule': crontab(minute=0, hour=0),
+        },
+    }
 
 CELERY_CONFIG = CeleryConfig
 
@@ -80,6 +102,16 @@ WEBDRIVER_OPTION_ARGS = [
 ]
 
 AUTH_USER_REGISTRATION = True
+
+<% if @feature_flags['ALERT_REPORTS'] -%>
+SMTP_HOST = "<%= @smtp_host %>"
+SMTP_STARTTLS = <% if @smtp_starttls %>True<% else %>False<% end %>
+SMTP_SSL = <% if @smtp_ssl %>True<% else %>False<% end %>
+SMTP_USER = "<%= @smtp_user %>"
+SMTP_PORT = <%= @smtp_port %>
+SMTP_PASSWORD = "<%= @smtp_pass %>"
+SMTP_MAIL_FROM = "<%= @smtp_mail_from %>"
+<% end -%>
 
 <% if @ldap_enabled -%>
 AUTH_TYPE = AUTH_LDAP

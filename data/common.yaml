@@ -12,6 +12,11 @@ superset::ldap_bind_user: ''
 superset::ldap_bind_pass: ''
 superset::ldap_base_dn: ''
 superset::ldap_group_dn: ''
+superset::smtp_host: ''
+superset::smtp_port: 25
+superset::smtp_user: ''
+superset::smtp_pass: ''
+superset::smtp_mail_from: ''
 superset::python_version: '3'
 superset::pip_args: ''
 superset::ldap_roles_mapping: {}
@@ -19,6 +24,8 @@ superset::log_level: DEBUG
 superset::concurrency: 4
 superset::manage_database: true
 superset::ldap_enabled: false
+superset::smtp_starttls: false
+superset::smtp_ssl: false
 superset::ldap_filter_login: true
 superset::row_limit: None
 superset::dynamic_plugins: false

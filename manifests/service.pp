@@ -7,6 +7,11 @@ class superset::service inherits superset {
     enable => true,
   }
 
+  service { 'celery-beat':
+    ensure => running,
+    enable => true,
+  }
+
   service { 'gunicorn':
     ensure => running,
     enable => true,
