@@ -13,6 +13,7 @@ superset::ldap_bind_pass: ''
 superset::ldap_base_dn: ''
 superset::ldap_group_dn: ''
 superset::smtp_host: ''
+superset::smtp_port: 25
 superset::smtp_user: ''
 superset::smtp_pass: ''
 superset::smtp_mail_from: ''
