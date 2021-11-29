@@ -26,6 +26,7 @@ class superset (
   Integer $smtp_port,
   Variant[Integer, Enum['None']] $row_limit,
   Variant[Enum[present, absent, latest], String[1]] $superset_version,
+  Array[String[1]] $superset_extras,
   Optional[String[1]] $package_index_url = undef,
   Optional[String[1]] $package_index_username = undef,
   Optional[String[1]] $package_index_password = undef,

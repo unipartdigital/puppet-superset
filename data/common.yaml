@@ -28,4 +28,4 @@ superset::smtp_starttls: false
 superset::smtp_ssl: false
 superset::ldap_filter_login: true
 superset::row_limit: None
-superset::dynamic_plugins: false
+superset::superset_extras: ['postgres']
