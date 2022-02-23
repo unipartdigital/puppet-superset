@@ -28,6 +28,9 @@ FEATURE_FLAGS ={
 <% @feature_flags.each do | feature, toggle | -%>
     "<%= feature %>": <% if toggle -%>True<% else -%>False<% end -%>,
 <% end -%>
+<% if @jinja_context_addons -%>
+    "ENABLE_TEMPLATE_PROCESSING": True,
+<% end -%>
 }
 <% else -%>
 # no feature flag configured
@@ -162,3 +165,11 @@ def init_celery_logger(logger=None,loglevel=logging.DEBUG, **kwargs):
 after_setup_task_logger.connect(init_celery_logger)
 after_setup_logger.connect(init_celery_logger)
 
+
+<% if @jinja_context_addons -%>
+JINJA_CONTEXT_ADDONS = {
+<% @jinja_context_addons.each do | addon, definition | -%>
+    "<%= addon %>": <%= definition %>,
+<% end -%>
+}
+<% end -%>

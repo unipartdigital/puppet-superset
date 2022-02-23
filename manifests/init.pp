@@ -39,6 +39,7 @@ class superset (
   Hash[String, Array[String]] $ldap_roles_mapping,
   Optional[String] $logo_path = undef,
   Optional[String] $ldap_user_filter = undef,
+  Optional[Hash[String, String]] $jinja_context_addons = undef,
 ) {
   contain superset::db
   contain superset::package
