@@ -175,3 +175,26 @@ JINJA_CONTEXT_ADDONS = {
 <% end -%>
 }
 <% end -%>
+
+
+<% if @time_grain_addons -%>
+# Define how to compute the custom time buckets
+TIME_GRAIN_ADDON_EXPRESSIONS = {
+<% @time_grain_addons.each do | db_engine, addons | -%>
+    "<%= db_engine %>": {
+<% addons.each do |addon| -%>
+        "<%= addon['id'] %>": "<%= addon['definition'] %>",
+<% end -%>
+    }
+<% end -%>
+}
+
+# Register these custom time grain
+TIME_GRAIN_ADDONS = {
+<% @time_grain_addons.each do | db_engine, addons | -%>
+<% addons.each do |addon| -%>
+    "<%= addon['id'] %>": "<%= addon['name'] %>",
+<% end -%>
+<% end -%>
+}
+<% end -%>
