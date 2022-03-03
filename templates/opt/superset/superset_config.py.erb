@@ -36,6 +36,8 @@ FEATURE_FLAGS ={
 # no feature flag configured
 <% end -%>
 
+ENABLE_JAVASCRIPT_CONTROLS = <% if @enable_js_controls %>True<% else %>False<% end %>
+
 ENABLE_TIME_ROTATE = True
 
 SESSION_COOKIE_SAMESITE = None
