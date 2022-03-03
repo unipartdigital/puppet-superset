@@ -32,15 +32,15 @@ class superset (
   Boolean $smtp_ssl,
   Boolean $manage_database,
   Boolean $ldap_filter_login,
-  Hash[String, Array[String]] $ldap_roles_mapping,
+  Hash[String[1], Array[String[1]]] $ldap_roles_mapping,
   Boolean $enable_js_controls,
   Optional[String[1]] $package_index_url = undef,
   Optional[String[1]] $package_index_username = undef,
   Optional[String[1]] $package_index_password = undef,
-  Optional[Hash[String, Boolean]] $feature_flags = undef,
+  Optional[Hash[String[1], Boolean]] $feature_flags = undef,
   Optional[String] $logo_path = undef,
   Optional[String] $ldap_user_filter = undef,
-  Optional[Hash[String, String]] $jinja_context_addons = undef,
+  Optional[Hash[String[1], String[1]]] $jinja_context_addons = undef,
 ) {
   contain superset::db
   contain superset::package
