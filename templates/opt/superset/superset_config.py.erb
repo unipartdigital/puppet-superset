@@ -198,3 +198,11 @@ TIME_GRAIN_ADDONS = {
 <% end -%>
 }
 <% end -%>
+
+<% if @time_grain_denylist -%>
+TIME_GRAIN_DENYLIST = [
+<% @time_grain_denylist.each do |time_grain| -%>
+    "<%= time_grain %>",
+<% end -%>
+]
+<% end -%>
