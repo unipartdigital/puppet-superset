@@ -42,6 +42,7 @@ class superset (
   Optional[String] $ldap_user_filter = undef,
   Optional[Hash[String[1], String[1]]] $jinja_context_addons = undef,
   Optional[Hash[String[1], Array[Hash[String[1], String[1]]]]] $time_grain_addons = undef,
+  Optional[Array[String[1]]] $time_grain_denylist = undef,
 ) {
   contain superset::db
   contain superset::package
