@@ -1,0 +1,13 @@
+---
+superset::pip_deps:
+ - setuptools
+ - wheel
+ - eventlet
+ - gevent
+ - greenlet
+ - gsheetsdb
+ - gunicorn
+ - python-ldap
+ - sqlalchemy
+ - cysystemd
+ - 'markupsafe==2.0.1'

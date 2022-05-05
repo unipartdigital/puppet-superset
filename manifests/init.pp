@@ -21,6 +21,7 @@ class superset (
   String $smtp_mail_from,
   String $log_level,
   String $pip_args,
+  Array $pip_deps,
   Variant[Enum['system', 'pypy'], String[1]] $python_version,
   Integer $concurrency,
   Integer $smtp_port,

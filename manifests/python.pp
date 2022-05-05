@@ -26,18 +26,7 @@ class superset::python inherits superset {
     require  => [Class['python'], File[$base_dir]],
   }
 
-  $deps = [
-    'eventlet',
-    'gevent',
-    'greenlet',
-    'gsheetsdb',
-    'gunicorn',
-    'pyldap',
-    'sqlalchemy',
-    'systemd',
-  ]
-
-  python::pip { $deps:
+  python::pip { $pip_deps:
     ensure       => present,
     virtualenv   => "${base_dir}/venv",
     pip_provider => 'pip3',
@@ -63,7 +52,7 @@ class superset::python inherits superset {
     index        => $package_index,
     install_args => $pip_args,
     owner        => $owner,
-    require      => [Python::Pip[$deps]]
+    require      => [Python::Pip[$pip_deps]]
   }
 
   exec { "restorecon -r ${base_dir}/venv/bin":
