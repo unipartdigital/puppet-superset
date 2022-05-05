@@ -5,7 +5,11 @@ from logging.handlers import TimedRotatingFileHandler
 from celery.schedules import crontab
 from celery.signals import after_setup_logger, after_setup_task_logger
 from flask_appbuilder.security.manager import AUTH_DB, AUTH_LDAP
+<%- if @os['name'] == 'Debian' and @os['release']['major'] <= '11' -%>
+from cysystemd.journal import JournaldLogHandler
+<%- else -%>
 from systemd.journal import JournaldLogHandler
+<% end -%>
 from superset.utils.logging_configurator import DefaultLoggingConfigurator
 
 

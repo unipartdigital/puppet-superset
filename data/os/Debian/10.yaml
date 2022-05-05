@@ -1,0 +1,10 @@
+---
+superset::pip_deps:
+ - eventlet
+ - gevent
+ - greenlet
+ - gsheetsdb
+ - gunicorn
+ - pyldap
+ - sqlalchemy
+ - systemd
