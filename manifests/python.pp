@@ -5,10 +5,12 @@ class superset::python inherits superset {
     require superset::selinux
   }
 
-  class { 'python':
-    version => $python_version,
-    pip     => present,
-    dev     => present,
+  if !defined(Class['python']) {
+    class { 'python':
+      version => $python_version,
+      pip     => present,
+      dev     => present,
+    }
   }
 
   file { $base_dir:
