@@ -15,6 +15,6 @@ class superset::config inherits superset {
     content => template("${module_name}/opt/superset/superset_config.py.erb"),
     owner   => $owner,
     group   => $group,
-    notify  => [Service['gunicorn'], Service['celery']]
+    notify  => [Service['gunicorn'], Service['celery'], File[$base_dir]]
   }
 }
