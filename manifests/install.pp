@@ -41,6 +41,7 @@ class superset::install inherits superset {
     ],
     require     => [Exec['superset upgrade'], File[$base_dir]],
     refreshonly => true,
+    unless      => "${base_dir}/venv/bin/superset fab list-users | grep -q 'username:admin'",
     subscribe   => File["${base_dir}/exec_checks/installed_superset_version"],
   }
 
