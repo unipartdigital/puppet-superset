@@ -54,9 +54,7 @@ class superset (
   contain superset::config
   contain superset::install
   contain superset::service
-  if downcase($::osfamily) == 'redhat'{
-    contain superset::selinux
-  }
+  contain superset::selinux
 
   group { $group:
     ensure => 'present',

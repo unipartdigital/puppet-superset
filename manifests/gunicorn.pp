@@ -2,6 +2,7 @@
 class superset::gunicorn inherits superset {
   require superset::python
   require superset::db
+  require superset::selinux
 
   file { '/etc/conf.d/gunicorn':
     ensure  => present,
