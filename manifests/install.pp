@@ -1,7 +1,6 @@
 # =Class superset::install
 class superset::install inherits superset {
   require superset::config
-  require superset::version
 
   exec { 'superset upgrade':
     command     => join([

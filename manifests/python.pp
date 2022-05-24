@@ -54,14 +54,7 @@ class superset::python inherits superset {
     index        => $package_index,
     install_args => $pip_args,
     owner        => $owner,
+    notify       => [Service['gunicorn'], Service['celery'], File["${base_dir}/exec_checks/installed_superset_version"]],
     require      => [Python::Pip[$pip_deps]]
-  }
-
-  exec { "restorecon -r ${base_dir}/venv/bin":
-    command => "restorecon -r ${base_dir}/venv/bin",
-    onlyif  => "test `ls -aZ ${base_dir}/venv/bin/gunicorn | grep -c bin_t` -eq 0",
-    user    => 'root',
-    path    => '/sbin:/usr/sbin:/bin:/usr/bin',
-    require => [Python::Pip['apache-superset']]
   }
 }

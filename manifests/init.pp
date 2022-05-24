@@ -35,6 +35,7 @@ class superset (
   Boolean $ldap_filter_login,
   Hash[String[1], Array[String[1]]] $ldap_roles_mapping,
   Boolean $enable_js_controls,
+  Boolean $manage_selinux,
   Optional[String[1]] $package_index_url = undef,
   Optional[String[1]] $package_index_username = undef,
   Optional[String[1]] $package_index_password = undef,
@@ -48,14 +49,13 @@ class superset (
   contain superset::db
   contain superset::package
   contain superset::python
+  contain superset::version
   contain superset::celery
   contain superset::gunicorn
   contain superset::config
   contain superset::install
   contain superset::service
-  if downcase($::osfamily) == 'redhat'{
-    contain superset::selinux
-  }
+  contain superset::selinux
 
   group { $group:
     ensure => 'present',

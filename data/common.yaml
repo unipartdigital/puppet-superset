@@ -30,3 +30,4 @@ superset::ldap_filter_login: true
 superset::row_limit: None
 superset::superset_extras: ['postgres']
 superset::enable_js_controls: false
+superset::manage_selinux: false
