@@ -48,6 +48,7 @@ class superset (
   contain superset::db
   contain superset::package
   contain superset::python
+  contain superset::version
   contain superset::celery
   contain superset::gunicorn
   contain superset::config

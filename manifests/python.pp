@@ -54,7 +54,7 @@ class superset::python inherits superset {
     index        => $package_index,
     install_args => $pip_args,
     owner        => $owner,
-    notify       => [Service['gunicorn'], Service['celery']],
+    notify       => [Service['gunicorn'], Service['celery'], File["${base_dir}/exec_checks/installed_superset_version"]],
     require      => [Python::Pip[$pip_deps]]
   }
 
